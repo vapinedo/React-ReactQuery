@@ -1,6 +1,7 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import HomePage from './components/HomePage'
+import { ReactQueryDevtools } from "react-query/devtools"
 import SuperheroesPage from './components/SuperheroesPage'
 import { QueryClientProvider, QueryClient } from "react-query"
 import RQSuperheroesPage from './components/RQSuperheroesPage'
@@ -21,6 +22,7 @@ function App() {
           </Routes>
         </section> 
       </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
     </QueryClientProvider>
   )
 }
