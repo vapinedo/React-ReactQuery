@@ -5,17 +5,23 @@ const SuperheroesPage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     axios.get("http://localhost:4000/superheroes")
       .then((response) => {
         setData(response.data);
       })
+      .catch(error => setError(error.message))
       .finally(() => setIsLoading(false));
   }, []);
 
   if (isLoading) {
-    return <h2>Loading...</h2>
+    return <div className="alert alert-primary" role="alert">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="alert alert-danger" role="alert">{error}</div>;
   }
 
   return (
