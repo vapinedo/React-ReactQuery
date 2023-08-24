@@ -9,7 +9,9 @@ const RQSuperheroesPage = () => {
     fetchSuperHeroes,
    {
     // cacheTime: 7000, by default is five second ( 50000 ms )
-    staleTime: 3000
+    // staleTime: 3000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
    } 
   );
 
