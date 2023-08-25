@@ -4,6 +4,15 @@ import { useQuery } from "react-query"
 const fetchSuperHeroes = () => axios.get("http://localhost:4000/superheroes");
 
 const RQSuperheroesPage = () => {
+
+  const onSuccess = (data) => {
+    console.log("Doing side effect when network request gets data", data);
+  };
+
+  const onError = (error) => {
+    console.log("Doing side effect when network rquest gets error", error);
+  };
+   
   const { isLoading, data, isError, error, isFetching, refetch } = useQuery(
     "super-heroes", 
     fetchSuperHeroes,
@@ -14,11 +23,11 @@ const RQSuperheroesPage = () => {
     // refetchOnWindowFocus: true,
     // refetchInterval: 2000,
     // refetchIntervalInBackground: true,
-    enabled: false // this prevent to trigger the network request whe component mounting
-   } 
+    // enabled: false // this prevent to trigger the network request whe component mounting
+    onSuccess,
+    onError
+   }
   );
-
-  console.log({ isLoading, isFetching }); 
 
   if (isLoading || isFetching) {
     return <h2>Loading...</h2>
