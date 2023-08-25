@@ -10,7 +10,7 @@ const RQSuperheroesPage = () => {
   };
 
   const onError = (error) => {
-    console.log("Doing side effect when network rquest gets error", error);
+    console.log("Doing side effect when network rquest gets error", error );
   };
    
   const { isLoading, data, isError, error, isFetching, refetch } = useQuery(
@@ -25,7 +25,11 @@ const RQSuperheroesPage = () => {
     // refetchIntervalInBackground: true,
     // enabled: false // this prevent to trigger the network request whe component mounting
     onSuccess,
-    onError
+    onError,
+    select: (data) => {
+      const superHeroNames = data.data.map(hero => hero.name);
+      return superHeroNames;
+    }
    }
   );
 
@@ -42,9 +46,12 @@ const RQSuperheroesPage = () => {
       <h2>Super Heroes Page</h2>
       <button onClick={refetch} className="btn btn-primary my-3">Fetch Heroes</button>
       <ul>
-        {data?.data.map((hero) => {
+        {/* {data?.data.map((hero) => {
           return <li key={hero["id"]}>{hero["name"]}</li>
-        })}
+        })} */}
+        {
+          data.map(heroName => <li key={heroName}>{heroName}</li>)
+        }
       </ul>
     </article>
   )
